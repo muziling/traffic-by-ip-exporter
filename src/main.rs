@@ -8,7 +8,7 @@ use env_logger::{
   Env
 };
 
-use clap::{App, Arg};
+use clap::{Command, Arg};
 use std::net::SocketAddr;
 use pcap::{Device, Capture};
 use pnet::packet::{
@@ -30,18 +30,18 @@ fn get_requested_device<'a> (requested_device_s : &str, requested_device : &'a m
 }
 
 fn main() {
-  let flags = App::new("traffic-by-ip-exporter")
+  let flags = Command::new("traffic-by-ip-exporter")
     .version("0.1.0")
     .about("Prometheus exporter for traffic accounting by IP")
     .author("Luis Felipe Domínguez Vega <ldominguezvega@gmail.com>")
-    .arg(Arg::with_name("interface")
+    .arg(Arg::new("interface")
       .short("i")
       .long("interface")
       .help("Interface for listen")
       .required(true)
       .takes_value(true)
     )
-    .arg(Arg::with_name("port")
+    .arg(Arg::new("port")
       .short("p")
       .long("port")
       .help("Host port to expose http server")
@@ -49,7 +49,7 @@ fn main() {
       .takes_value(true)
       .default_value("9185")
     )
-    .arg(Arg::with_name("host")
+    .arg(Arg::new("host")
       .short("h")
       .long("host")
       .help("Address where to expose http server")
@@ -92,7 +92,7 @@ fn main() {
   r.register(Box::new(traffic_by_ip_bits.clone())).unwrap(); */
 
   let devices = Device::list();
-  let mut main_device : Device = Device::lookup().unwrap();
+  let mut main_device : Device = Device::lookup().unwrap().unwrap().open().unwrap();;
 
   match devices {
     Ok(vec_devices) => {
@@ -114,7 +114,7 @@ fn main() {
     .snaplen(5000)
     .open().unwrap();
 
-  while let Ok(packet) = cap.next() {
+  while let Ok(packet) = cap.next_packet() {
     let ethernet = EthernetPacket::new(packet.data).unwrap();
     match ethernet.get_ethertype() {
       EtherTypes::Ipv4 => {
