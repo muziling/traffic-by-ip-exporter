@@ -13,8 +13,6 @@ use std::net::SocketAddr;
 use pcap::{Device, Capture};
 use pnet::packet::{
     ethernet::{EtherTypes, EthernetPacket},
-    ipv4::Ipv4Packet,
-    Packet,
 };
 
 mod handlers;
@@ -35,33 +33,32 @@ fn main() {
     .about("Prometheus exporter for traffic accounting by IP")
     .author("Luis Felipe Domínguez Vega <ldominguezvega@gmail.com>")
     .arg(Arg::new("interface")
-      .short("i")
+      .short('i')
       .long("interface")
       .help("Interface for listen")
       .required(true)
-      .takes_value(true)
     )
     .arg(Arg::new("port")
-      .short("p")
+      .short('p')
       .long("port")
       .help("Host port to expose http server")
       .required(false)
-      .takes_value(true)
       .default_value("9185")
     )
     .arg(Arg::new("host")
-      .short("h")
+      .short('h')
       .long("host")
       .help("Address where to expose http server")
       .required(false)
-      .takes_value(true)
       .default_value("0.0.0.0")
     )
     .get_matches();
 
-  let iface = flags.value_of("interface").unwrap();
-  let expose_port = flags.value_of("port").unwrap();
-  let expose_host = flags.value_of("host").unwrap();
+  let (iface, expose_port, expose_host) = (
+            flags.get_flag("interface"),
+            flags.get_flag("port"),
+            flags.get_flag("host"),
+        );
 
   Builder::from_env(Env::default().default_filter_or("info")).init();
 
@@ -92,7 +89,7 @@ fn main() {
   r.register(Box::new(traffic_by_ip_bits.clone())).unwrap(); */
 
   let devices = Device::list();
-  let mut main_device : Device = Device::lookup().unwrap().unwrap().open().unwrap();;
+  let mut main_device = Device::lookup().unwrap().unwrap().open().unwrap();
 
   match devices {
     Ok(vec_devices) => {
