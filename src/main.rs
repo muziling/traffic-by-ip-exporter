@@ -101,7 +101,7 @@ fn main() {
     }
   }
  
-  if main_device.name != iface {
+  if main_device.name != iface.to_owned() {
     std::process::exit(1);
   }
 
