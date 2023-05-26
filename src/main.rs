@@ -66,7 +66,7 @@ fn main() {
 
   // Parse address used to bind exporter to.
   let addr_raw = expose_host.to_owned() + ":" + expose_port;
-  let addr: SocketAddr = addr_raw.parse().expect("can not parse listen addr");
+  //let addr: SocketAddr = addr_raw.parse().expect("can not parse listen addr");
 
   // Start exporter.
   /* let (request_receiver, finished_sender) = PrometheusExporter::run_and_notify(addr);
