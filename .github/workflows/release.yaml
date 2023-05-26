@@ -34,8 +34,8 @@ jobs:
           echo "$HOME/.cargo/bin" >>"${GITHUB_PATH}"
           yum install epel-release -y
           yum install jq -y
-          yum install centos-release-scl
-          yum install devtoolset-11-gcc*
+          yum install centos-release-scl -y
+          yum install devtoolset-11-gcc* -y
           scl enable devtoolset-11 bash
 
       - uses: taiki-e/upload-rust-binary-action@v1
