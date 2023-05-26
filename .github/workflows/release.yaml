@@ -27,7 +27,7 @@ jobs:
       
       - name: Initialization environment
         run: |
-          sudo -E apt-get -y libpcap-dev
+          sudo -E apt-get -y install libpcap-dev
 
       - uses: taiki-e/upload-rust-binary-action@v1
         with:
