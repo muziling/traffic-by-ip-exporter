@@ -55,9 +55,9 @@ fn main() {
     .get_matches();
 
   let (iface, expose_port, expose_host) = (
-            flags.get_one::<String>("interface"),
-            flags.get_one::<String>("port"),
-            flags.get_one::<String>("host"),
+            flags.get_one::<String>("interface").unwrap(),
+            flags.get_one::<String>("port").unwrap(),
+            flags.get_one::<String>("host").unwrap(),
         );
 
   Builder::from_env(Env::default().default_filter_or("info")).init();
