@@ -29,7 +29,9 @@ jobs:
       - name: Initialization environment
         run: |
           yum install -y libpcap-devel
-          curl https://sh.rustup.rs -sSf | sh -s -- -y
+          set -euxo pipefail
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
+          echo "$HOME/.cargo/bin" >>"${GITHUB_PATH}"
 
       - uses: taiki-e/upload-rust-binary-action@v1
         with:
