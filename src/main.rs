@@ -65,7 +65,7 @@ fn main() {
   info!("Using interface: {}", iface);
 
   // Parse address used to bind exporter to.
-  let addr_raw = expose_host.to_owned() + ":" + expose_port.to_owned();
+  let addr_raw = expose_host.to_owned() + ":" + expose_port;
   let addr: SocketAddr = addr_raw.parse().expect("can not parse listen addr");
 
   // Start exporter.
@@ -89,7 +89,7 @@ fn main() {
   r.register(Box::new(traffic_by_ip_bits.clone())).unwrap(); */
 
   let devices = Device::list();
-  let mut main_device = Device::lookup().unwrap();
+  let mut main_device = Device::lookup().unwrap().unwrap();
 
   match devices {
     Ok(vec_devices) => {
@@ -105,7 +105,7 @@ fn main() {
     std::process::exit(1);
   }
 
-  let mut cap = Capture::from_device(main_device.unwrap()).unwrap()
+  let mut cap = Capture::from_device(main_device).unwrap()
     .promisc(false)
     .snaplen(5000)
     .open().unwrap();
