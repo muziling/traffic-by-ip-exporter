@@ -9,7 +9,7 @@ use env_logger::{
 };
 
 use clap::{Command, Arg};
-use std::net::SocketAddr;
+// use std::net::SocketAddr;
 use pcap::{Device, Capture};
 use pnet::packet::{
     ethernet::{EtherTypes, EthernetPacket},
