@@ -36,8 +36,7 @@ jobs:
           yum install jq -y
           yum install centos-release-scl -y
           yum install devtoolset-11-gcc* -y
-          ln -s /opt/rh/devtoolset-11/root/bin/gcc /usr/bin/gcc
-          ln -s /opt/rh/devtoolset-11/root/bin/g++ /usr/bin/g++
+          echo "/opt/rh/devtoolset-11/root/bin" >>"${GITHUB_PATH}"
 
       - uses: taiki-e/upload-rust-binary-action@v1
         with:
