@@ -37,6 +37,9 @@ jobs:
           yum install centos-release-scl -y
           yum install devtoolset-11-gcc* -y
           echo "/opt/rh/devtoolset-11/root/bin" >>"${GITHUB_PATH}"
+          dnf install 'dnf-command(config-manager)'
+          dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+          dnf install gh
 
       - uses: taiki-e/upload-rust-binary-action@v1
         with:
