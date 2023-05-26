@@ -32,6 +32,8 @@ jobs:
           set -euxo pipefail
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
           echo "$HOME/.cargo/bin" >>"${GITHUB_PATH}"
+          yum install epel-release -y
+          yum install jq -y
 
       - uses: taiki-e/upload-rust-binary-action@v1
         with:
