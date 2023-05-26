@@ -33,7 +33,7 @@ jobs:
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
           echo "$HOME/.cargo/bin" >>"${GITHUB_PATH}"
           yum install epel-release -y
-          yum install jq -y
+          yum install jq dnf -y
           yum install centos-release-scl -y
           yum install devtoolset-11-gcc* -y
           echo "/opt/rh/devtoolset-11/root/bin" >>"${GITHUB_PATH}"
