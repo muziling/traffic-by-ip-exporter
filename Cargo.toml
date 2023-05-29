@@ -7,6 +7,7 @@ edition = "2018"
 [dependencies]
 pcap = "1.1.0"
 prometheus_exporter_base = "1.4.0"
+prometheus = "0.13.3"
 pnet = "0.33.0"
 env_logger = "0.10.0"
 log = "0.4.17"
