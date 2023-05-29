@@ -13,6 +13,8 @@ use clap::{Command, Arg};
 use pcap::{Device, Capture};
 use pnet::packet::{
     ethernet::{EtherTypes, EthernetPacket},
+    ipv4::Ipv4Packet,
+    Packet,
 };
 
 mod handlers;
@@ -66,10 +68,10 @@ fn main() {
 
   // Parse address used to bind exporter to.
   let addr_raw = expose_host.to_owned() + ":" + expose_port;
-  //let addr: SocketAddr = addr_raw.parse().expect("can not parse listen addr");
+  let addr: SocketAddr = addr_raw.parse().expect("can not parse listen addr");
 
   // Start exporter.
-  /* let (request_receiver, finished_sender) = PrometheusExporter::run_and_notify(addr);
+  let (request_receiver, finished_sender) = PrometheusExporter::run_and_notify(addr);
 
   let label_vector = [
       "direction", 
@@ -86,7 +88,7 @@ fn main() {
     .expect("Can't create gauge traffic_by_ip__bits");
 
   let r = Registry::new();
-  r.register(Box::new(traffic_by_ip_bits.clone())).unwrap(); */
+  r.register(Box::new(traffic_by_ip_bits.clone())).unwrap();
 
   let devices = Device::list();
   let mut main_device = Device::lookup().unwrap().unwrap();
