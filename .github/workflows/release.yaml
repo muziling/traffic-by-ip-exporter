@@ -38,6 +38,9 @@ jobs:
           dnf install 'dnf-command(config-manager)' -y
           dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
           dnf install gh -y
+          yum remove git
+          yum install https://repo.ius.io/ius-release-el7.rpm
+          yum install git236
 
       - uses: actions/checkout@v3
       - uses: taiki-e/upload-rust-binary-action@v1
