@@ -35,12 +35,12 @@ jobs:
           yum install centos-release-scl -y
           yum install devtoolset-11-gcc* -y
           echo "/opt/rh/devtoolset-11/root/bin" >>"${GITHUB_PATH}"
+          yum remove git -y
+          yum install https://repo.ius.io/ius-release-el7.rpm -y
+          yum install git236 -y
           dnf install 'dnf-command(config-manager)' -y
           dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
           dnf install gh -y
-          yum remove git
-          yum install https://repo.ius.io/ius-release-el7.rpm
-          yum install git236
 
       - uses: actions/checkout@v3
       - uses: taiki-e/upload-rust-binary-action@v1
