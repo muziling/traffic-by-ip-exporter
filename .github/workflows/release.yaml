@@ -38,6 +38,7 @@ jobs:
           yum remove git -y
           yum install https://repo.ius.io/ius-release-el7.rpm -y
           yum install git236 -y
+          git config --global --add safe.directory '*'
           dnf install 'dnf-command(config-manager)' -y
           dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
           dnf install gh -y
