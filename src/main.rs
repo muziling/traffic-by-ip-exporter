@@ -13,9 +13,8 @@ use std::net::SocketAddr;
 use pcap::{Device, Capture};
 use pnet::packet::{
     ethernet::{EtherTypes, EthernetPacket},
-    ipv4::Ipv4Packet,
-    Packet,
 };
+use prometheus::{Opts, Registry, Gauge};
 
 mod handlers;
 
